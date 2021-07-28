@@ -1,4 +1,4 @@
-.jumbotron {
+/* .jumbotron {
     width: 600px;
     text-align: center;
     margin-top: 20px;
@@ -13,9 +13,9 @@ h3 {
 }
 .form-control {
     margin-bottom: 5px;
-}
+} */
 .selecionado {
-    background-color: yellow;
+    background-color: #d1d8e0;
 }
 .negrito {
     font-weight: bold;
