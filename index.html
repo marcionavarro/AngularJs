@@ -20,6 +20,7 @@
 	<script src="js/value/configValue.js"></script>
 	<script src="js/filters/nameFilter.js"></script>
 	<script src="js/filters/ellipsisFilter.js"></script>
+	<script src="js/directives/uiAlertDirective.js"></script>
 </head>
 
 <body ng-controller="listaTelefonicaCtrl">
@@ -27,7 +28,14 @@
 		<div class="mx-auto">
 			<div class="jumbotron p-lg-5 shadow">
 				<h3 class="text-center mb-5 bg-white p-3 w-50 mx-auto">{{app}}</h3>
-				{{message}}
+
+				<ui-alert title="Ops, aconteceu um problema!">
+					{{ error }}
+				</ui-alert>
+
+				<ui-alert title="Série sobre AngularJS">
+					Episódio 10 - Criando Diretivas - Parte 1
+				</ui-alert>
 
 				<div class="input-group mb-5 col-sm-12 col-md-8 col-lg-6 mx-auto">
 					<div class="input-group-prepend">
