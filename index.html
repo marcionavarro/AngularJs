@@ -21,6 +21,7 @@
 	<script src="js/filters/nameFilter.js"></script>
 	<script src="js/filters/ellipsisFilter.js"></script>
 	<script src="js/directives/uiAlertDirective.js"></script>
+	<script src="js/directives/uiDateDirective.js"></script>
 </head>
 
 <body ng-controller="listaTelefonicaCtrl">
@@ -29,13 +30,13 @@
 			<div class="jumbotron p-lg-5 shadow">
 				<h3 class="text-center mb-5 bg-white p-3 w-50 mx-auto">{{app}}</h3>
 
-				<ui-alert title="Ops, aconteceu um problema!">
+				<!-- <ui-alert title="Ops, aconteceu um problema!">
 					{{ error }}
-				</ui-alert>
+				</ui-alert> -->
 
-				<ui-alert title="Série sobre AngularJS">
+				<!-- <ui-alert title="Série sobre AngularJS">
 					Episódio 10 - Criando Diretivas - Parte 1
-				</ui-alert>
+				</ui-alert> -->
 
 				<div class="input-group mb-5 col-sm-12 col-md-8 col-lg-6 mx-auto">
 					<div class="input-group-prepend">
@@ -75,6 +76,10 @@
 							<input class="form-control p-3" type="text" ng-model="contato.telefone" name="telefone"
 								placeholder="Telefone" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/" />
 						</div>
+					</div>
+					<div class="form-group">
+						{{ contato.data }}
+						<input class="form-control" type="text" ng-model="contato.data" name="data" placeholder="Data" ui-date />
 					</div>
 					<div class="form-group">
 						<select class="form-control" ng-model="contato.operadora"
