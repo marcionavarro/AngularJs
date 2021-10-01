@@ -1,18 +1,9 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
-const bodyParser = require('body-parser')
 
-app.use(express.static(__dirname));
-// app.use(express.bodyParser());
-app.use(bodyParser.urlencoded({ extended: true}))
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-
-var contatos = [
-	{nome: "Bruno da silva", telefone: "9999-2222", data: new Date(), operadora: {nome: "Oi", codigo: 14, categoria: "Celular"}},
-	{nome: "SANDRA MARIA OLIVEIRA", telefone: "9999-3333", data: new Date(), operadora: {nome: "Vivo", codigo: 15, categoria: "Celular"}},
-	{nome: "carlos MACHADO", telefone: "9999-9999", data: new Date(), operadora: {nome: "Tim", codigo: 41, categoria: "Celular"}}
-];
 var operadoras = [
 	{nome: "Oi", codigo: 14, categoria: "Celular", preco: 2},
 	{nome: "Vivo", codigo: 15, categoria: "Celular", preco: 1},
@@ -21,7 +12,12 @@ var operadoras = [
 	{nome: "Embratel", codigo: 21, categoria: "Fixo", preco: 2}
 ];
 
-app.listen(process.env.PORT || 3412);
+var contatos = [
+  {id: 1, nome: "Bruno", telefone: "9999-2222", data: new Date(), operadora: operadoras[0]},
+  {id: 2, nome: "Sandra", telefone: "9999-3333", data: new Date(), operadora: operadoras[1]},
+  {id: 3, nome: "Mariana", telefone: "9999-9999", data: new Date(), operadora: operadoras[2]}
+];
+
 
 app.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -34,6 +30,16 @@ app.get('/contatos', function(req, res) {
   res.json(contatos);
 });
 
+app.get('/contatos/:id', function(req, res) {
+  contatos.forEach(function (contato) {
+  	if (contato.id == req.params.id) {
+  		res.json(contato);
+  		return;
+  	}
+  });
+  res.status(404).end();
+});
+
 app.post('/contatos', function(req, res) {
   contatos.push(req.body);
   res.json(true);
@@ -42,3 +48,5 @@ app.post('/contatos', function(req, res) {
 app.get('/operadoras', function(req, res) {
   res.json(operadoras);
 });
+
+app.listen(process.env.PORT || 3412);

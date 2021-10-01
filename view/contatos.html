@@ -1,0 +1,64 @@
+<div class="container mt-5 col-6">
+    <div class="mx-auto">
+        <div class="jumbotron p-lg-5 shadow">
+            <h3 class="text-center mb-5 bg-white p-3 w-50 mx-auto">{{app}}</h3>
+
+            <ui-accordions class="card mb-5">
+                <ul class="list-group list-group-flush">
+                    <ui-accordion title="Accordion 1" class="list-group-item bg-light text-info">
+                        <p class="text-dark mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
+                            minus praesentium, quam
+                            aperiam repellendus necessitatibus consequuntur mollitia dignissimos placeat neque quae
+                            sapiente
+                            eiusquis veniam perferendis reiciendis nobis sit optio.</p>
+                    </ui-accordion>
+                    <ui-accordion title="Accordion 2" class="list-group-item  bg-light text-info">
+                        <p class="text-dark mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
+                            minus praesentium, quam
+                            aperiam repellendus necessitatibus consequuntur mollitia dignissimos placeat neque quae
+                            sapiente
+                            eiusquis veniam perferendis reiciendis nobis sit optio.</p>
+                    </ui-accordion>
+                    <ui-accordion title="Accordion 3" class="list-group-item  bg-light text-info">
+                        <p class="text-dark mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
+                            minus praesentium, quam
+                            aperiam repellendus necessitatibus consequuntur mollitia dignissimos placeat neque quae
+                            sapiente
+                            eiusquis veniam perferendis reiciendis nobis sit optio.</p>
+                    </ui-accordion>
+                </ul>
+            </ui-accordions>
+
+            <div class="input-group mb-5 col-sm-12 col-md-8 col-lg-6 mx-auto">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Pesquisar</span>
+                </div>
+                <input class="form-control" type="text" ng-model="criterioDeBusca"
+                    placeholder="O que você está buscando?" />
+            </div>
+
+            <table ng-show="contatos.length > 0" class="table table-responsive">
+                <tr>
+                    <th></th>
+                    <th>Serial</th>
+                    <th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
+                    <th><a href="" ng-click="ordenarPor('telefone')">Telefone</a></th>
+                    <th>Operadora</th>
+                    <th>Data</th>
+                </tr>
+                <tr ng-class="{'selecionado negrito': contato.selecionado}"
+                    ng-repeat="contato in contatos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
+                    <td><input type="checkbox" ng-model="contato.selecionado" /></td>
+                    <td>{{contato.serial }}</td>
+                    <td><a href="#/detalhesContato/{{ contato.id }}">{{contato.nome | name }}</a></td>
+                    <td>{{contato.telefone}}</td>
+                    <td>{{contato.operadora.nome}}</td>
+                    <td>{{contato.data | date:'dd/MM/yyyy HH:mm'}}</td>
+                </tr>
+            </table>
+            <hr />
+            <a href="#/novoContato" class="btn  btn-outline-primary btn-block p-2">Novo Contato</a>
+        </div>
+
+    </div>
+</div>

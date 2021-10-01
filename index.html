@@ -10,13 +10,17 @@
 	<link rel="stylesheet" href="css/app.css">
 
 	<script src="lib/angular/angular.js"></script>
+	<script src="lib/angular/angular-route.js"></script>
 	<script src="lib/angular/angular-messages.js"></script>
 	<script src="lib/serialGenerator/serialGenerator.js"></script>
 	<script src="lib/ui/ui.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/controllers/listaTelefonicaCtrl.js"></script>
+	<script src="js/controllers/novoContatoCtrl.js"></script>.
+	<script src="js/controllers/detalhesContatoCtrl.js"></script>
 	<script src="js/services/contatosAPIService.js"></script>
 	<script src="js/services/operadorasAPIService.js"></script>
+	<script src="js/config/routeConfig.js"></script>
 	<script src="js/config/serialGeneratorConfig.js"></script>
 	<script src="js/value/configValue.js"></script>
 	<script src="js/filters/nameFilter.js"></script>
@@ -25,116 +29,9 @@
 	<script src="js/directives/uiDateDirective.js"></script>
 </head>
 
-<body ng-controller="listaTelefonicaCtrl">
-	<div class="container mt-5">
-		<div class="mx-auto">
-			<div class="jumbotron p-lg-5 shadow">
-				<h3 class="text-center mb-5 bg-white p-3 w-50 mx-auto">{{app}}</h3>
-
-				<ui-accordions class="card mb-5">
-					<ul class="list-group list-group-flush">
-						<ui-accordion title="Accordion 1" class="list-group-item bg-light text-info">
-							<p class="text-dark mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati minus praesentium, quam
-							aperiam repellendus necessitatibus consequuntur mollitia dignissimos placeat neque quae
-							sapiente
-							eiusquis veniam perferendis reiciendis nobis sit optio.</p>
-						</ui-accordion>
-						<ui-accordion title="Accordion 2" class="list-group-item  bg-light text-info">
-							<p class="text-dark mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati minus praesentium, quam
-								aperiam repellendus necessitatibus consequuntur mollitia dignissimos placeat neque quae
-								sapiente
-								eiusquis veniam perferendis reiciendis nobis sit optio.</p>
-						</ui-accordion>
-						<ui-accordion title="Accordion 3" class="list-group-item  bg-light text-info">
-							<p class="text-dark mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati minus praesentium, quam
-								aperiam repellendus necessitatibus consequuntur mollitia dignissimos placeat neque quae
-								sapiente
-								eiusquis veniam perferendis reiciendis nobis sit optio.</p>
-						</ui-accordion>
-					</ul>
-				</ui-accordions>
-
-				<div class="input-group mb-5 col-sm-12 col-md-8 col-lg-6 mx-auto">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="inputGroup-sizing-default">Pesquisar</span>
-					</div>
-					<input class="form-control" type="text" ng-model="criterioDeBusca"
-						placeholder="O que você está buscando?" />
-				</div>
-
-				<table ng-show="contatos.length > 0" class="table table-responsive-md">
-					<tr>
-						<th></th>
-						<th>Serial</th>
-						<th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
-						<th><a href="" ng-click="ordenarPor('telefone')">Telefone</a></th>
-						<th>Operadora</th>
-						<th>Data</th>
-					</tr>
-					<tr ng-class="{'selecionado negrito': contato.selecionado}"
-						ng-repeat="contato in contatos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
-						<td><input type="checkbox" ng-model="contato.selecionado" /></td>
-						<td>{{contato.serial }}</td>
-						<td>{{contato.nome | name | ellipsis:10}}</td>
-						<td>{{contato.telefone}}</td>
-						<td>{{contato.operadora.nome}}</td>
-						<td>{{contato.data | date:'dd/MM/yyyy HH:mm'}}</td>
-					</tr>
-				</table>
-				<hr />
-				<form name="contatoForm">
-					<div class="form-row">
-						<div class="form-group col-md-6">
-							<input class="form-control p-3" type="text" ng-model="contato.nome" name="nome"
-								placeholder="Nome" ng-required="true" ng-minlength="10" />
-						</div>
-						<div class="form-group col-md-6">
-							<input class="form-control p-3" type="text" ng-model="contato.telefone" name="telefone"
-								placeholder="Telefone" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/" />
-						</div>
-					</div>
-					<div class="form-group">
-						<input class="form-control" type="text" ng-model="contato.data" name="data" placeholder="Data"
-							ui-date />
-					</div>
-					<div class="form-group">
-						<select class="form-control" ng-model="contato.operadora"
-							ng-options="operadora.nome + ' ( ' + (operadora.preco | currency) + ' )' for operadora in operadoras | orderBy:'nome'">
-							<option value="">Selecione uma operadora</option>
-						</select>
-					</div>
-
-					<!-- <input class="form-control p-3" type="text" ng-model="contato.nome" name="nome" placeholder="Nome"
-						ng-required="true" ng-minlength="10" />
-					<input class="form-control p-3 my-2" type="text" ng-model="contato.telefone" name="telefone"
-						placeholder="Telefone" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/" /> -->
-
-				</form>
-
-				<div ng-show="contatoForm.nome.$dirty" ng-messages="contatoForm.nome.$error">
-					<div ng-message="required" class="alert alert-danger">
-						Por favor, preencha o campo nome!
-					</div>
-					<div ng-message="minlength" class="alert alert-danger">
-						O campo nome deve ter no mínimo 10 caracteres.
-					</div>
-				</div>
-
-				<div ng-show="contatoForm.telefone.$error.required && contatoForm.telefone.$dirty"
-					class="alert alert-danger">
-					Por favor, preencha o campo telefone!
-				</div>
-				<div ng-show="contatoForm.telefone.$error.pattern" class="alert alert-danger">
-					O campo telefone deve ter o formato DDDDD-DDDD.
-				</div>
-				<button class="btn btn-primary btn-large p-2" ng-click="adicionarContato(contato)"
-					ng-disabled="contatoForm.$invalid">Adicionar Contato</button>
-				<button class="btn btn-danger btn-large p-2" ng-click="apagarContatos(contatos)"
-					ng-if="isContatoSelecionado(contatos)">Apagar Contatos</button>
-			</div>
-			<div ng-include="'view/footer.html'"></div>
-		</div>
-	</div>
+<body>
+	<div ng-view></div>
+	<div ng-include="'view/footer.html'"></div>
 </body>
 
 </html>
