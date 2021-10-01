@@ -1,5 +1,4 @@
-angular.module("listaTelefonica").config(function ($routeProvider) {
-    
+angular.module("listaTelefonica").config(function ($routeProvider) { 
     $routeProvider.when("/contatos", {
         templateUrl: "view/contatos.html",
         controller: "listaTelefonicaCtrl",
@@ -29,6 +28,9 @@ angular.module("listaTelefonica").config(function ($routeProvider) {
                 return contatosAPI.getContato($route.current.params.id);
             }
         }
+    });
+    $routeProvider.when("/error", {
+        templateUrl: "view/error.html",
     });
    $routeProvider.otherwise({redirectTo: "/contatos"});
 });

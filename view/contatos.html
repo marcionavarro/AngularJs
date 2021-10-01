@@ -50,7 +50,7 @@
                     ng-repeat="contato in contatos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
                     <td><input type="checkbox" ng-model="contato.selecionado" /></td>
                     <td>{{contato.serial }}</td>
-                    <td><a href="#/detalhesContato/{{ contato.id }}">{{contato.nome | name }}</a></td>
+                    <td><a href="#/detalhesContato/{{ contato.id + 1}}">{{contato.nome | name }}</a></td>
                     <td>{{contato.telefone}}</td>
                     <td>{{contato.operadora.nome}}</td>
                     <td>{{contato.data | date:'dd/MM/yyyy HH:mm'}}</td>
@@ -58,6 +58,7 @@
             </table>
             <hr />
             <a href="#/novoContato" class="btn  btn-outline-primary btn-block p-2">Novo Contato</a>
+            <button class="btn btn-outline-danger btn-block p-2" ng-click="apagarContatos(contatos)" ng-if="isContatoSelecionado(contatos)">Apagar Contatos</button>
         </div>
 
     </div>
