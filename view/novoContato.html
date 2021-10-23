@@ -2,17 +2,50 @@
     <div class="mx-auto">
         <div class="jumbotron p-lg-5 shadow">
             <form name="contatoForm">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <input class="form-control p-3" type="text" ng-model="contato.nome" name="nome"
-                            placeholder="Nome" ng-required="true" ng-minlength="10" />
+                <select class="form-control mb-3" ng-model="contato.tipo">
+                    <option value="">Selecione o tipo</option>
+                    <option>Pessoa Física</option>
+                    <option>Pessoa Jurídica</option>
+                </select>
+
+                <div ng-if="contato.tipo == 'Pessoa Física'">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <input class="form-control p-3" type="text" ng-model="contato.nome" name="nome"
+                                placeholder="Nome" ng-required="true" ng-minlength="10" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input class="form-control p-3" type="text" ng-model="contato.nome" name="nome"
+                                placeholder="CPF" ng-required="true" />
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
+                </div>
+
+                <div ng-if="contato.tipo == 'Pessoa Jurídica'">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <input class="form-control p-3" type="text" ng-model="contato.nomeFantasia"
+                                name="nomeFantasia" placeholder="Nome Fantasia" ng-required="true" ng-minlength="10" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input class="form-control p-3" type="text" ng-model="contato.cnpj" name="cnpj"
+                                placeholder="CNPJ" ng-required="true" />
+                        </div>
+                        <div class="form-group col-md-12">
+                            <input class="form-control p-3" type="text" ng-model="contato.razaoSocial"
+                                name="razaoSocial" placeholder="Razão Social" ng-required="true" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
                         <input class="form-control p-3" type="text" ng-model="contato.telefone" name="telefone"
                             placeholder="Telefone" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/" />
                     </div>
                 </div>
-                
+
+
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <input class="form-control" type="text" ng-model="contato.data" name="data" placeholder="Data"
@@ -25,7 +58,7 @@
                         </select>
                     </div>
                 </div>
-                
+
             </form>
 
             <div ng-show="contatoForm.nome.$dirty" ng-messages="contatoForm.nome.$error">
